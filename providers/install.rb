@@ -45,12 +45,11 @@ action :update do
   @updated ||= update_git_repository_if_needed
   Chef::Log.debug("Running :update for #{new_resource}: @updated now #{@updated}")
 
-  if @updated
-    run_bundler
-  end
+  bundler_did_run = run_bundler_if_needed
 
-  Chef::Log.debug("Running :update for #{new_resource}: returning #{@updated}")
-  new_resource.updated_by_last_action(@updated)
+  new_resource.updated_by_last_action(@updated || bundler_did_run)
+
+  Chef::Log.debug("Running :update for #{new_resource}: returning #{!!new_resource.updated_by_last_action?}")
 end
 
 protected
@@ -93,8 +92,18 @@ def update_git_repository_if_needed
   r.updated_by_last_action?
 end
 
-def run_bundler
+def run_bundler_if_needed
   Chef::Log.debug("Running run_bundler for #{new_resource}")
+
+  # Run bundler only if the git repo was updated, or bundler has never been run (which probably
+  # means the service has just been added).
+  run_bundler = @updated
+  run_bundler ||= !::File.exists?(::File.join(new_resource.path, "bundle"))
+
+  unless run_bundler
+    Chef::Log.debug("Running run_bundler for #{new_resource} is not necessary")
+    return
+  end
 
   br = bash "install gems in #{new_resource.path}" do
     user new_resource.user
@@ -103,4 +112,6 @@ def run_bundler
     action :nothing
   end
   br.run_action(:run)
+
+  br.updated_by_last_action?
 end

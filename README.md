@@ -42,19 +42,19 @@ Manages the installation of a CloudFoundry service.
 At the time of this writing, services are distributed only in source form as part of the
 `vcap-services` git repository; this resource checks out the git repository only once regardless
 of the number of services that are installed.
+
 When the content of the repository changes, it will automatically perform any task that is
 required to updated all the services running on a node. In particular, it will restart every
 service that is installed from that repository, since there is no way of detecting changes in a
 single service.
 
+Conversely, if the content of the repository did not change, Bundler will not be run and no
+service will be restarted unless the directories created by Bundler don't exist.
+In other words, if you make other changes (deinstall a gem, or make manual changes) you need to
+either run `bundle` manually or delete the `#{path}/bundle` directory.
+
 Warning: the current version of this resource strongly assumes this particular layout; as a
 consequence, installing different services to unrelated directories is not supported at this time.
-
-Implementation details:
-
-* this resource runs Bundler in the service directory if and only if the git chackout was updated.
-In other words, if you make other changes (deinstall a gem, or make manual changes) you need to
-run `bundle` manually.
 
 # Actions:
 
