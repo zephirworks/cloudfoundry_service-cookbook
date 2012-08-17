@@ -19,6 +19,10 @@
 
 include Chef::Mixin::CloudfoundryCommon
 
+class << self
+  attr_accessor :repository_updated
+end
+
 def initialize(name, run_context=nil)
   super
 
@@ -30,8 +34,6 @@ def initialize(name, run_context=nil)
   new_resource.reference(node['cloudfoundry_service']['reference']) unless new_resource.reference
   new_resource.ruby_version(node['cloudfoundry']['ruby_1_9_2_version']) unless new_resource.ruby_version
   new_resource.ruby_path(ruby_bin_path(new_resource.ruby_version))
-
-  @updated = false
 end
 
 action :update do
@@ -40,14 +42,13 @@ action :update do
   create_target_directory
   install_bundler
 
-  Chef::Log.debug("Running :update for #{new_resource}: @updated was #{@updated}")
-  # Make sure that once we set updated=true it never goes false in the same run
-  @updated ||= update_git_repository_if_needed
-  Chef::Log.debug("Running :update for #{new_resource}: @updated now #{@updated}")
+  Chef::Log.debug("Running :update for #{new_resource}: self.class.repository_updated was #{self.class.repository_updated}")
+  update_git_repository_if_needed
+  Chef::Log.debug("Running :update for #{new_resource}: self.class.repository_updated now #{self.class.repository_updated}")
 
   bundler_did_run = run_bundler_if_needed
 
-  new_resource.updated_by_last_action(@updated || bundler_did_run)
+  new_resource.updated_by_last_action(self.class.repository_updated || bundler_did_run)
 
   Chef::Log.debug("Running :update for #{new_resource}: returning #{!!new_resource.updated_by_last_action?}")
 end
@@ -89,7 +90,7 @@ def update_git_repository_if_needed
   r.run_action(:sync)
 
   Chef::Log.debug("Running update_git_repository_if_needed for #{new_resource}: returning #{r.updated_by_last_action?}")
-  r.updated_by_last_action?
+  self.class.repository_updated = true if r.updated_by_last_action?
 end
 
 def run_bundler_if_needed
@@ -97,7 +98,7 @@ def run_bundler_if_needed
 
   # Run bundler only if the git repo was updated, or bundler has never been run (which probably
   # means the service has just been added).
-  run_bundler = @updated
+  run_bundler = self.class.repository_updated
   run_bundler ||= !::File.exists?(::File.join(new_resource.path, "bundle"))
 
   unless run_bundler
