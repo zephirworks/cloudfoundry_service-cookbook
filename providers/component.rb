@@ -152,11 +152,13 @@ def add_to_init(config_file, pid_file, log_file)
 end
 
 def add_to_logrotate(pid_file, log_file)
-  logrotate_app new_resource.name do
+  user = new_resource.user
+
+  logrotate_app new_resource.init_service_name do
     cookbook  "logrotate"
     path      log_file
-    frequency daily
+    frequency "daily"
     rotate    30
-    create    "644 root root"
+    create    "644 #{user} #{user}"
   end
 end
