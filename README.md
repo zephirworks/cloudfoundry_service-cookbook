@@ -34,6 +34,49 @@ The following attributes are user-configurable:
 Resources/Providers
 ===================
 
+cloudfoundry\_service\_component
+--------------------------------
+
+Manages the installation, configuration and execution of a component of a CloudFoundry service.
+
+Most services have different components: pretty much all of them have a `gateway`, most have a `node`
+and some will have additional lifecycle components.
+
+By default, it uses the `cloudfoundry_service_install` resource to install the service from git;
+see its documentation (below) for more information. It is possible to opt-out and handle the
+installation with other means by setting the `install` attribute to false.
+
+# Actions:
+
+* `:create` - installs and configures the given service component;
+* `:enable` - configures the given service component to start automatically at boot;
+* `:start` - starts the given service component;
+* `:restart` - restarts the given service component.
+
+# Attribute parameters
+
+- `name`: name attribute. The name of the service component. This will be used to derive the default value for other attribute;
+- `service_name`: the name of the service, e.g. `mongodb` for the MongoDB service;
+- `install`: if false, the service component will not be installed automatically; it will need to be installed explicitly. Defaults to true.
+- `config_dir`: path to a directory that will contain the configuration files for the service component; it will be created if it does not exist. Defaults to `node['cloudfoundry']['config_dir']`;
+- `user`: the user that will own the installed files. Defaults to `node['cloudfoundry']['user']`;
+- `pid_dir`: path to a directory that will hold pid files for the service. Defaults to `node['cloudfoundry']['pid_dir']`;
+- `pid_dir`: path to a directory that will hold log files for the service. Defaults to `node['cloudfoundry']['log_dir']`;
+- `init_service_name`: the name of the `init` (Upstart) service that will be created. Defaults to `#{cloudfoundry}_name`;
+- `base_path`: path to a directory that will contain the installation of all the services; if `install` is specifiied, it will be created if it does not exist. Defaults to `node['cloudfoundry_service']['install_path']}`;
+- `subdirectory`: name of a subdirectory of `base_path` that will contain the installation of this services; if `install` is specifiied, it will be created if it does not exist. Defaults to `name`;
+- `extra_args`: extra arguments to add to the service component invokation.
+
+Examples:
+
+    cloudfoundry_service_component "mysql_node" do
+      service_name  "mysql"
+    end
+
+    cloudfoundry_service_component "mysql_gateway" do
+      service_name  "mysql"
+    end
+
 cloudfoundry\_service\_install
 ------------------------------
 
