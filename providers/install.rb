@@ -43,7 +43,8 @@ action :update do
   install_bundler
 
   Chef::Log.debug("Running :update for #{new_resource}: self.class.repository_updated was #{self.class.repository_updated}")
-  update_git_repository_if_needed
+  # If repository_updated is anything but nil, it means this method ran before, no need to run it again.
+  update_git_repository if self.class.repository_updated.nil?
   Chef::Log.debug("Running :update for #{new_resource}: self.class.repository_updated now #{self.class.repository_updated}")
 
   bundler_did_run = run_bundler_if_needed
@@ -76,8 +77,8 @@ def install_bundler
   gr.run_action(:install)
 end
 
-def update_git_repository_if_needed
-  Chef::Log.debug("Running update_git_repository_if_needed for #{new_resource}")
+def update_git_repository
+  Chef::Log.debug("Running update_git_repository for #{new_resource}")
 
   r = git new_resource.base_path do
     repository        new_resource.repository
@@ -89,8 +90,8 @@ def update_git_repository_if_needed
   end
   r.run_action(:sync)
 
-  Chef::Log.debug("Running update_git_repository_if_needed for #{new_resource}: returning #{r.updated_by_last_action?}")
-  self.class.repository_updated = true if r.updated_by_last_action?
+  Chef::Log.debug("Running update_git_repository for #{new_resource}: returning #{r.updated_by_last_action?}")
+  self.class.repository_updated = r.updated_by_last_action?
 end
 
 def run_bundler_if_needed
