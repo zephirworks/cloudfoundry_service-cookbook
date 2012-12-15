@@ -1,4 +1,4 @@
-maintainer       "ZephirWorks"
+maintainer       "Andrea Campi"
 maintainer_email "andrea.campi@zephirworks.com"
 license          "Apache 2.0"
 description      "Base cookbook for cloudfoundry service cookbooks"
