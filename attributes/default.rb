@@ -26,3 +26,6 @@ default['cloudfoundry_service']['repo'] = "https://github.com/cloudfoundry/vcap-
 
 # A reference to a commit (the SHA1 or a branch name) to deploy.
 default['cloudfoundry_service']['reference'] = "1f44c80e218e820d8e9db7a0a118561c5338450c"
+
+# Path to the directory used by services to store private data.
+default['cloudfoundry_service']['base_dir'] = "/var/vcap/services"

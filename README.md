@@ -37,6 +37,7 @@ The following attributes are user-configurable:
 * `node['cloudfoundry_service']['install_path']` - The directory where sources for each service will be installed. Defaults to "/srv/vcap-srv"
 * `node['cloudfoundry_service']['repo']` - The URL to a git repository containing the sources for all the services. If you wish to make changes to the source code, you can fork this repository and change this attribute to point to your own fork. Defaults to "https://github.com/cloudfoundry/vcap-services.git"
 * `node['cloudfoundry_service']['reference']` - A reference to a commit (the SHA1 or a branch name) to deploy. Defaults to "ac31866f8568593d8499ad07c5a74ae7ed527aa4"
+* `node['cloudfoundry_service']['base_dir']` - Path to the directory used by services to store private data. Default is `/var/vcap/services`.
 
 Resources/Providers
 ===================
