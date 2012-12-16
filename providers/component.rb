@@ -104,6 +104,12 @@ def create_config_directory
     action    :nothing
   end
   d.run_action(:create)
+
+  directory "/var/vcap/sys" do
+    user      new_resource.user
+    recursive true
+    action    :nothing
+  end.run_action(:create)
 end
 
 def create_config_file(config_file, pid_file, log_file)
