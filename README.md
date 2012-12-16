@@ -67,6 +67,7 @@ installation with other means by setting the `install` attribute to false.
 - `service_name`: the name of the service, e.g. `mongodb` for the MongoDB service;
 - `install`: if false, the service component will not be installed automatically; it will need to be installed explicitly. Defaults to true.
 - `config_dir`: path to a directory that will contain the configuration files for the service component; it will be created if it does not exist. Defaults to `node['cloudfoundry']['config_dir']`;
+- `data_dir`: path to a directory that will runtime data for the service component; it will be created if it does not exist. Defaults to `File.join(node['cloudfoundry_service']['base_dir'], service_name)`;
 - `user`: the user that will own the installed files. Defaults to `node['cloudfoundry']['user']`;
 - `pid_dir`: path to a directory that will hold pid files for the service. Defaults to `node['cloudfoundry']['pid_dir']`;
 - `pid_dir`: path to a directory that will hold log files for the service. Defaults to `node['cloudfoundry']['log_dir']`;

@@ -24,6 +24,7 @@ attribute :name, :kind_of => String, :name_attribute => true
 attribute :service_name, :kind_of => [String, NilClass], :required => true
 attribute :install, :kind_of => [TrueClass, FalseClass, NilClass], :default => true
 attribute :config_dir, :kind_of => [String, NilClass], :default => nil
+attribute :data_dir, :kind_of => [String, NilClass], :default => nil
 attribute :user, :kind_of => [String, NilClass], :default => nil
 attribute :pid_dir, :kind_of => [String, NilClass], :default => nil
 attribute :log_dir, :kind_of => [String, NilClass], :default => nil
