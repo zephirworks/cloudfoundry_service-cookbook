@@ -28,6 +28,7 @@ attribute :data_dir, :kind_of => [String, NilClass], :default => nil
 attribute :user, :kind_of => [String, NilClass], :default => nil
 attribute :pid_dir, :kind_of => [String, NilClass], :default => nil
 attribute :log_dir, :kind_of => [String, NilClass], :default => nil
+attribute :lock_dir, :kind_of => [String, NilClass], :default => nil
 attribute :init_service_name, :kind_of => [String, NilClass], :default => nil
 attribute :base_path, :kind_of => [String, NilClass], :default => nil
 attribute :subdirectory, :kind_of => [String, NilClass], :default => nil

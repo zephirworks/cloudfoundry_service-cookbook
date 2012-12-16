@@ -29,3 +29,6 @@ default['cloudfoundry_service']['reference'] = "1f44c80e218e820d8e9db7a0a118561c
 
 # Path to the directory used by services to store private data.
 default['cloudfoundry_service']['base_dir'] = "/var/vcap/services"
+
+# Path to the directory used by services to store lock files.
+default['cloudfoundry_service']['lock_dir'] = "/var/vcap/sys"

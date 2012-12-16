@@ -38,6 +38,7 @@ The following attributes are user-configurable:
 * `node['cloudfoundry_service']['repo']` - The URL to a git repository containing the sources for all the services. If you wish to make changes to the source code, you can fork this repository and change this attribute to point to your own fork. Defaults to "https://github.com/cloudfoundry/vcap-services.git"
 * `node['cloudfoundry_service']['reference']` - A reference to a commit (the SHA1 or a branch name) to deploy. Defaults to "ac31866f8568593d8499ad07c5a74ae7ed527aa4"
 * `node['cloudfoundry_service']['base_dir']` - Path to the directory used by services to store private data. Default is `/var/vcap/services`.
+* `node['cloudfoundry_service']['lock_dir']` - Path to the directory used by services to store locks. Default is `/var/vcap/sys`.
 
 Resources/Providers
 ===================
@@ -71,6 +72,7 @@ installation with other means by setting the `install` attribute to false.
 - `user`: the user that will own the installed files. Defaults to `node['cloudfoundry']['user']`;
 - `pid_dir`: path to a directory that will hold pid files for the service. Defaults to `node['cloudfoundry']['pid_dir']`;
 - `pid_dir`: path to a directory that will hold log files for the service. Defaults to `node['cloudfoundry']['log_dir']`;
+- `lock_dir`: path to a directory that will hold lock files for the service. Defaults to `node['cloudfoundry_service']['lock_dir']`;
 - `init_service_name`: the name of the `init` (Upstart) service that will be created. Defaults to `#{cloudfoundry}_name`;
 - `base_path`: path to a directory that will contain the installation of all the services; if `install` is specifiied, it will be created if it does not exist. Defaults to `node['cloudfoundry_service']['install_path']}`;
 - `subdirectory`: name of a subdirectory of `base_path` that will contain the installation of this services; if `install` is specifiied, it will be created if it does not exist. Defaults to `name`;

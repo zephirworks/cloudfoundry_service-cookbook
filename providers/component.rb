@@ -29,6 +29,7 @@ def initialize(name, run_context=nil)
   new_resource.user(node['cloudfoundry']['user']) unless new_resource.user
   new_resource.pid_dir(node['cloudfoundry']['pid_dir']) unless new_resource.pid_dir
   new_resource.log_dir(node['cloudfoundry']['log_dir']) unless new_resource.log_dir
+  new_resource.lock_dir(node['cloudfoundry_service']['lock_dir']) unless new_resource.lock_dir
   new_resource.init_service_name("cloudfoundry-#{new_resource.name}") unless new_resource.init_service_name
   new_resource.base_path(node['cloudfoundry_service']['install_path']) unless new_resource.base_path
   new_resource.subdirectory(new_resource.service_name) unless new_resource.subdirectory
@@ -112,7 +113,7 @@ def create_config_directory
     action    :nothing
   end.run_action(:create)
 
-  directory "/var/vcap/sys" do
+  directory new_resource.lock_dir do
     user      new_resource.user
     recursive true
     action    :nothing
