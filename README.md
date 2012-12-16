@@ -1,7 +1,11 @@
 Description
 ===========
 
-A Chef cookbook that provides basic functionality for writing cookbooks that manage [CloudFoundry](http://www.cloudfoundry.org/) services.
+basic functionality for writing cookbooks that manage services in a
+[Cloud Foundry](http://www.cloudfoundry.org) installation.
+
+Unless you are creating or modifying a cookbook, there is nothing interesting
+in here.
 
 Requirements
 ============
@@ -10,6 +14,8 @@ Cookbooks
 ---------
 
 * cloudfoundry
+* logrotate
+* rbenv
 
 Platform
 --------
@@ -18,7 +24,8 @@ Platform
 
 Tested on:
 
-* Ubuntu 11.10
+* Ubuntu 10.04
+* Ubuntu 12.04
 
 Attributes
 ==========
