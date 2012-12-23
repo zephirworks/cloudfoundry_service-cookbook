@@ -85,7 +85,7 @@ def update_git_repository
     reference         new_resource.reference
     user              new_resource.user
     enable_submodules new_resource.enable_submodules
-    depth             new_resource.depth
+    # depth             new_resource.depth
     action :nothing
   end
   r.run_action(:sync)
