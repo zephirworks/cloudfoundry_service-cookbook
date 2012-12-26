@@ -26,6 +26,7 @@ attribute :install, :kind_of => [TrueClass, FalseClass, NilClass], :default => t
 attribute :config_dir, :kind_of => [String, NilClass], :default => nil
 attribute :data_dir, :kind_of => [String, NilClass], :default => nil
 attribute :user, :kind_of => [String, NilClass], :default => nil
+attribute :group, :kind_of => [String, NilClass], :default => nil
 attribute :pid_dir, :kind_of => [String, NilClass], :default => nil
 attribute :log_dir, :kind_of => [String, NilClass], :default => nil
 attribute :lock_dir, :kind_of => [String, NilClass], :default => nil

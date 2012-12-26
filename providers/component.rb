@@ -27,6 +27,7 @@ def initialize(name, run_context=nil)
   new_resource.config_dir(node['cloudfoundry']['config_dir']) unless new_resource.config_dir
   new_resource.data_dir(::File.join(node['cloudfoundry_service']['base_dir'], new_resource.service_name)) unless new_resource.data_dir
   new_resource.user(node['cloudfoundry']['user']) unless new_resource.user
+  new_resource.group(node['cloudfoundry']['group']) unless new_resource.group
   new_resource.pid_dir(node['cloudfoundry']['pid_dir']) unless new_resource.pid_dir
   new_resource.log_dir(node['cloudfoundry']['log_dir']) unless new_resource.log_dir
   new_resource.lock_dir(node['cloudfoundry_service']['lock_dir']) unless new_resource.lock_dir
@@ -124,6 +125,7 @@ def create_config_file(config_file, pid_file, log_file)
   t1 = template config_file do
     source  "#{new_resource.name}-config.yml.erb"
     owner   new_resource.user
+    group   new_resource.group
     mode    0644
     variables(
       :pid_file       => pid_file,
