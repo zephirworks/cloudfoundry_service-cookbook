@@ -32,7 +32,7 @@ def initialize(name, run_context=nil)
   new_resource.log_dir(node['cloudfoundry']['log_dir']) unless new_resource.log_dir
   new_resource.lock_dir(node['cloudfoundry_service']['lock_dir']) unless new_resource.lock_dir
   new_resource.init_service_name("cloudfoundry-#{new_resource.name}") unless new_resource.init_service_name
-  new_resource.base_path(node['cloudfoundry_service']['install_path']) unless new_resource.base_path
+  new_resource.base_path(::File.join(node['cloudfoundry_service']['install_path'], new_resource.name)) unless new_resource.base_path
   new_resource.subdirectory(new_resource.service_name) unless new_resource.subdirectory
 
   # internal
