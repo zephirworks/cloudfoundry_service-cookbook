@@ -30,6 +30,7 @@ def initialize(name, run_context=nil)
   new_resource.subdirectory(new_resource.name) unless new_resource.subdirectory
   new_resource.path(::File.join(new_resource.base_path, new_resource.subdirectory)) unless new_resource.path
   new_resource.user(node['cloudfoundry']['user']) unless new_resource.user
+  new_resource.group(node['cloudfoundry']['group']) unless new_resource.group
   new_resource.repository(node['cloudfoundry_service']['repo']) unless new_resource.repository
   new_resource.reference(node['cloudfoundry_service']['reference']) unless new_resource.reference
   new_resource.ruby_version(node['cloudfoundry']['ruby_1_9_2_version']) unless new_resource.ruby_version
@@ -84,6 +85,7 @@ def update_git_repository
     repository        new_resource.repository
     reference         new_resource.reference
     user              new_resource.user
+    group             new_resource.group
     enable_submodules new_resource.enable_submodules
     # depth             new_resource.depth
     action :nothing
