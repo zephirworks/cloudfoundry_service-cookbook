@@ -42,11 +42,7 @@ action :update do
 
   create_target_directory
   install_bundler
-
-  Chef::Log.debug("Running :update for #{new_resource}: self.class.repository_updated was #{self.class.repository_updated}")
-  # If repository_updated is anything but nil, it means this method ran before, no need to run it again.
-  update_git_repository if self.class.repository_updated.nil?
-  Chef::Log.debug("Running :update for #{new_resource}: self.class.repository_updated now #{self.class.repository_updated}")
+  update_git_repository
 
   bundler_did_run = run_bundler_if_needed
 
