@@ -89,7 +89,7 @@ end
 protected
 
 def install_service
-  r = cloudfoundry_service_install new_resource.service_name do
+  r = cloudfoundry_service_install new_resource.name do
     base_path     new_resource.base_path
     subdirectory  new_resource.subdirectory
     user          new_resource.user
