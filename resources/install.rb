@@ -25,6 +25,7 @@ attribute :base_path, :kind_of => [String, NilClass], :default => nil
 attribute :subdirectory, :kind_of => [String, NilClass], :default => nil
 attribute :path, :kind_of => [String, NilClass], :default => nil
 attribute :user, :kind_of => [String, NilClass], :default => nil
+attribute :group, :kind_of => [String, NilClass], :default => nil
 attribute :repository, :kind_of => [String, NilClass], :default => nil
 attribute :reference, :kind_of => [String, NilClass], :default => nil
 attribute :enable_submodules, :kind_of => [TrueClass, FalseClass, NilClass], :default => true
