@@ -19,10 +19,6 @@
 
 include Chef::Mixin::CloudfoundryCommon
 
-class << self
-  attr_accessor :repository_updated
-end
-
 def initialize(name, run_context=nil)
   super
 
@@ -42,11 +38,11 @@ action :update do
 
   create_target_directory
   install_bundler
-  update_git_repository
+  if repo_updated = update_git_repository
+    bundler_did_run = run_bundler_if_needed
+  end
 
-  bundler_did_run = run_bundler_if_needed
-
-  new_resource.updated_by_last_action(self.class.repository_updated || bundler_did_run)
+  new_resource.updated_by_last_action(repo_updated || bundler_did_run)
 
   Chef::Log.debug("Running :update for #{new_resource}: returning #{!!new_resource.updated_by_last_action?}")
 end
@@ -89,21 +85,11 @@ def update_git_repository
   r.run_action(:sync)
 
   Chef::Log.debug("Running update_git_repository for #{new_resource}: returning #{r.updated_by_last_action?}")
-  self.class.repository_updated = r.updated_by_last_action?
+  r.updated_by_last_action?
 end
 
 def run_bundler_if_needed
   Chef::Log.debug("Running run_bundler for #{new_resource}")
-
-  # Run bundler only if the git repo was updated, or bundler has never been run (which probably
-  # means the service has just been added).
-  run_bundler = self.class.repository_updated
-  run_bundler ||= !::File.exists?(::File.join(new_resource.path, "bundle"))
-
-  unless run_bundler
-    Chef::Log.debug("Running run_bundler for #{new_resource} is not necessary")
-    return
-  end
 
   br = bash "install gems in #{new_resource.path}" do
     user new_resource.user
