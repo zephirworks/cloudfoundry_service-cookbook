@@ -22,7 +22,7 @@ define :service_rbenv do
 
   node.default[params[:namespace]][params[:component]]['ruby_version'] = default_version
 
-  ruby_ver = node.default[params[:namespace]][params[:component]]['ruby_version']
+  ruby_ver = node[params[:namespace]][params[:component]]['ruby_version']
   ruby_path = ruby_bin_path(ruby_ver)
 
   include_recipe "rbenv::default"
