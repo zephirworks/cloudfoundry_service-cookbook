@@ -93,6 +93,7 @@ def install_service
     base_path     new_resource.base_path
     subdirectory  new_resource.subdirectory
     user          new_resource.user
+    ruby_version  new_resource.ruby_version
     action :nothing
   end
   r.run_action(:update)
