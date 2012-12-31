@@ -19,10 +19,12 @@
 
 define :service_rbenv do
   default_version = params[:default_version] || node['cloudfoundry']['ruby_1_9_2_version']
+  namespace = params[:namespace]
+  component = params[:component]
 
-  node.default[params[:namespace]][params[:component]]['ruby_version'] = default_version
+  node.default[namespace][component]['ruby_version'] = default_version
 
-  ruby_ver = node[params[:namespace]][params[:component]]['ruby_version']
+  ruby_ver = node[namespace][component]['ruby_version']
   ruby_path = ruby_bin_path(ruby_ver)
 
   include_recipe "rbenv::default"
