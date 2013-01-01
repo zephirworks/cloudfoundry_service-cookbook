@@ -18,7 +18,7 @@
 #
 
 define :service_rbenv do
-  default_version = params[:default_version] || node['cloudfoundry']['ruby_1_9_2_version']
+  default_version = params[:default_version] || node['cloudfoundry_service']['ruby_version']
   namespace = params[:namespace]
   component = params[:component]
 

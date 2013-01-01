@@ -32,3 +32,6 @@ default['cloudfoundry_service']['base_dir'] = "/var/vcap/services"
 
 # Path to the directory used by services to store lock files.
 default['cloudfoundry_service']['lock_dir'] = "/var/vcap/sys"
+
+# The exact version of ruby-1.9.2 to install.
+default['cloudfoundry_service']['ruby_version'] = "1.9.3-p362"

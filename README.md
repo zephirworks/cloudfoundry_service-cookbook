@@ -39,6 +39,8 @@ The following attributes are user-configurable:
 * `node['cloudfoundry_service']['reference']` - A reference to a commit (the SHA1 or a branch name) to deploy. Defaults to "ac31866f8568593d8499ad07c5a74ae7ed527aa4"
 * `node['cloudfoundry_service']['base_dir']` - Path to the directory used by services to store private data. Default is `/var/vcap/services`.
 * `node['cloudfoundry_service']['lock_dir']` - Path to the directory used by services to store locks. Default is `/var/vcap/sys`.
+* `node['cloudfoundry_service']['ruby_version']` - Version of ruby to use by
+  default for running services. Defaults to `1.9.3-p362`.
 
 Resources/Providers
 ===================
