@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: cloudfoundry_service
-# Recipe:: default
+# Definitions:: default
 #
 # Copyright 2012-2013, ZephirWorks
 #

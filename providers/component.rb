@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: cloudfoundry_service
-# Provider:: default
+# Provider:: component
 #
 # Copyright 2012-2013, ZephirWorks
 #
