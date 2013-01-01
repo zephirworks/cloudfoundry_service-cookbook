@@ -17,7 +17,6 @@
 # limitations under the License.
 #
 
-
 # The directory where sources for each service will be installed.
 default['cloudfoundry_service']['install_path'] = "/srv/cloudfoundry/services"
 
