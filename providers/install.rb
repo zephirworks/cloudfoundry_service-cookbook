@@ -93,6 +93,7 @@ def run_bundler_if_needed
 
   br = bash "install gems in #{new_resource.path}" do
     user new_resource.user
+    group new_resource.group
     cwd  new_resource.path
     code "#{::File.join(new_resource.ruby_path, "bundle")} install --without=test --standalone"
     action :nothing
